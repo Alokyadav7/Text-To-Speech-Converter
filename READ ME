@@ -1,0 +1,45 @@
+1. `let speech = new SpeechSynthesisUtterance();`
+   - This line creates a new instance of the `SpeechSynthesisUtterance` class, which represents a speech request that can be passed to the Web Speech API's speech synthesis component.
+
+2. `let voices = [];`
+
+   - This line initializes an empty array called `voices` which will later be used to store available voices for text-to-speech.
+
+3. `let voiceSelect = document.querySelector("select");`
+
+   - This line selects an HTML `<select>` element from the DOM. This `<select>` element is assumed to be present in the HTML and is used for selecting different voices for text-to-speech.
+
+4. `window.speechSynthesis.onvoiceschanged = () => { ... }`
+
+   - This line sets an event listener for the `voiceschanged` event of the `window.speechSynthesis` object. This event is triggered when the list of available voices changes, typically when voices are loaded. The code inside the callback function is executed when this event occurs.
+
+5. `voices = window.speechSynthesis.getVoices();`
+
+   - Inside the `voiceschanged` event listener, this line retrieves a list of available voices using the `window.speechSynthesis.getVoices()` method and stores them in the `voices` array.
+
+6. `speech.voice = voices[0];`
+
+   - This line sets the `voice` property of the `SpeechSynthesisUtterance` object (`speech`) to the first voice in the `voices` array. By default, it selects the first voice in the list.
+
+7. `voices.forEach((voice, i) => (voiceSelect.options[i] = new Option(voice.name, i)));`
+
+   - This loop iterates through the `voices` array and dynamically populates the `<select>` element (`voiceSelect`) with options for each available voice. Each voice's name is used as the option's text, and its index in the `voices` array is used as the option's value.
+
+8. `voiceSelect.addEventListener("change", () => { ... });`
+
+   - This line adds an event listener to the `<select>` element (`voiceSelect`) that listens for a `change` event. When the user selects a different voice from the dropdown, the code inside the callback function will execute.
+
+9. `speech.voice = voices[voiceSelect.value];`
+
+   - Inside the `change` event listener, this line updates the `voice` property of the `SpeechSynthesisUtterance` object (`speech`) to the voice selected by the user in the `<select>` element. It uses the value of the selected option to retrieve the corresponding voice from the `voices` array.
+
+10. `document.querySelector("button").addEventListener("click", () => { ... });`
+
+    - This line selects a `<button>` element from the DOM and adds a click event listener to it. When the button is clicked, the code inside the callback function will execute.
+
+11. `speech.text = document.querySelector("textarea").value;`
+
+    - Inside the click event listener, this line sets the `text` property of the `SpeechSynthesisUtterance` object (`speech`) to the value of a `<textarea>` element. This text will be synthesized into speech when the button is clicked.
+
+12. `window.speechSynthesis.speak(speech);`
+    - Finally, this line triggers the speech synthesis by calling `window.speechSynthesis.speak(speech)`. It uses the configured `speech` object to generate speech based on the selected voice and the text from the `<textarea>`.
